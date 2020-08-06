@@ -1,0 +1,33 @@
+<p>New Customer</p>
+
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+  <label for="name">Name</label>
+  <input type="text" name="name" formControlName="name" />
+  <small
+    *ngIf="
+      controls['name'].touched &&
+      controls['name'].invalid &&
+      controls['name'].errors.required
+    "
+    >Please enter a name</small
+  >
+  <small
+    *ngIf="
+      controls['name'].touched &&
+      controls['name'].invalid &&
+      controls['name'].errors.minlength
+    "
+    >Please a longer name (Min 5)</small
+  >
+
+  <label for="type">Type</label>
+  <select name="type" formControlName="type" placeholder="Please select">
+    <option *ngFor="let type of customerTypes | keyvalue" [ngValue]="type.key">{{
+      type.value
+    }}</option>
+  </select>
+  <small *ngIf="controls['type'].touched && controls['type'].invalid"
+    >Please select a type</small
+  >
+  <button type="submit" [disabled]="form.invalid">Create</button>
+</form>

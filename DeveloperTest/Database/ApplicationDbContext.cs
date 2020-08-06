@@ -1,12 +1,14 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using DeveloperTest.Database.Models;
+using DeveloperTest.Models;
 
 namespace DeveloperTest.Database
 {
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Job> Jobs { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -23,6 +25,14 @@ namespace DeveloperTest.Database
             modelBuilder.Entity<Job>()
                 .Property(x => x.JobId)
                 .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Job>().HasOne(j => j.Customer);
+
+            modelBuilder.Entity<Customer>()
+               .HasKey(x => x.Id);
+            
+               modelBuilder.Entity<Customer>().Property(x => x.Id)
+               .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<Job>()
                 .HasData(new Job

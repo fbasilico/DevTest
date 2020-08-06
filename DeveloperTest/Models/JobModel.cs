@@ -8,6 +8,9 @@ namespace DeveloperTest.Models
 
         public string Engineer { get; set; }
 
+
+        public CustomerGet Customer { get; set; }
+
         public DateTime When { get; set; }
     }
 }
